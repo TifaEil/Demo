@@ -499,7 +499,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &527778437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,10 +512,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47a4832254c35d48a876be87a782423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.5
+  speed: 5.8
   jump: 153
   isGround: 0
   name: Neke
+  r2d: {fileID: 527778436}
+  ani: {fileID: 527778432}
 --- !u!1 &796971392
 GameObject:
   m_ObjectHideFlags: 0
