@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [Header("元件")] //引用 
     public Rigidbody2D r2d;
     public Animator ani;
+    [Header("音效區域")]
+    public AudioSource aud;
+    public AudioClip soundDiamod;
     #endregion
 
 
@@ -27,15 +30,18 @@ public class Player : MonoBehaviour
        float h= Input.GetAxisRaw("Horizontal");  //檢測玩家輸入按鍵 -1為左 1為右
         r2d.AddForce(new Vector2(speed *h ,0)); //速度
         ani.SetBool("跑步開關",h != 0);//動畫元件設定值 
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) transform.eulerAngles = new Vector3(0, 180, 0);
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) transform.eulerAngles=new Vector3(0,0,0);
     }
 
     private void Jump() //跳躍 
     {//判斷按下空白鍵，並且在地板上判定isGround 為啓用
-        if (Input.GetKeyDown(KeyCode.Space) && isGround==true) //設置案件       
+        if ( Input.GetKeyDown(KeyCode.Space) ||Input.GetKeyDown(KeyCode.W)&& isGround==true) //設置案件       
         {
             isGround = false;
             //力度(往上)
             r2d.AddForce(new Vector2(0, jump));
+            ani.SetTrigger("跳躍觸發");
             
         }
 
