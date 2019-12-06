@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     #region 欄位區域
@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
     [Header("音效區域")]
     public AudioSource aud;
     public AudioClip soundDiamod;
+    [Header("磚石區域")]
+    public int diamondCurrent;
+    public int diamondTotal;
+    public Text textDiamond;
     #endregion
 
 
@@ -51,7 +55,12 @@ public class Player : MonoBehaviour
     {
 
     }
-
+    //開始事件:播放時執行一次
+    private void Start()
+    {
+        diamondTotal =GameObject.FindGameObjectsWithTag("磚石").Length;
+        textDiamond.text = "鑽石:0 /" + diamondTotal;
+    }
 
     //事件:指定位置指定次數執行
     //一秒執行約60次（60FPS）
@@ -68,6 +77,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name=="地板")
         {
             isGround = true;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag =="磚石")
+        {
+            aud.PlayOneShot(soundDiamod, 1.5f);
+            Destroy(collision.gameObject);
+            diamondCurrent++;
+            textDiamond.text = "鑽石:" + diamondCurrent+"/"+diamondTotal;
         }
     }
 }
